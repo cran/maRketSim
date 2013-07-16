@@ -1,5 +1,6 @@
-# Default NAMESPACE created by R
-# Remove the previous line if you edit this file
-
-# Export all names
-exportPattern(".")
+exportPattern("[a-zA-Z]") # Export all functions
+exportMethods(print)
+exportMethods(plot)
+exportMethods(as.data.frame)
+exportMethods(summary)
+exportMethods(as)

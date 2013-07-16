@@ -13,6 +13,7 @@
 
 # Extract market interest rate from a market object
 market.rate <- function(mkt,mat=NA,dur=NA,f=.5) {
+  require(taRifx)
 	# Error check inputs
 	if(is.na(mat)&is.na(dur)) stop("Must specify either mat or dur.\n")
 	if(class(mkt)!="market.bond"&class(mkt)!="market")  stop("Market must be a market object, created using market().\n")
@@ -75,6 +76,8 @@ market.rate <- function(mkt,mat=NA,dur=NA,f=.5) {
 				if(diff(range(mats[(length(mats)-6):length(mats)]))<tol)   break
 				if(N>150) {
 					cat("Loop appears to have run away on us.\n")
+          cat("Likely cause is that you have selected a duration above the maximum duration.\n")
+          cat("Either select a lower duration or a higher interest rate.\n")
 					return(list(is=is,mats=mats,err=err))
 				}
 			}

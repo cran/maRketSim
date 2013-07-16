@@ -14,7 +14,7 @@ findFV(P,i,t.elapsed,compound="continuous")
 }
 \arguments{
   \item{i}{
-Interest rate under which was purchased
+Interest rate under which bond was purchased (the coupon rate)
 }
   \item{mat}{
 Maturity

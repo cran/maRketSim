@@ -20,7 +20,7 @@ genPortfolio.bond <- function(n,mkt,dur,dur.sd,max.mat=30,type="random",f=.5,nam
 	if(class(mkt)!="market") { stop("market must be a market object.\n") }
 	if(type!="random"&type!="random.constrained") { stop("Tightly constrained portfolio generation not yet supported.  For now it fluctuates around the target duration.\n") }
 	# Calculate constants
-	max.dur <- summary(mkt,max.mat=max.mat)$max.dur
+	max.dur <- findMaxDur()
 	# Calculate portfolio
 	bonds <- vector("list",length=n) # Create a list to hold the bonds
 	for(num in seq(n)) {

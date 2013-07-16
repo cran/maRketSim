@@ -11,7 +11,15 @@ maRketSim plotting functions
 plot various maRketSim objects
 }
 \usage{
-	\method{plot}{history.market}(x, plot.MMrate = TRUE, plot.mats = c(1, 2, 5, 10), cols = rainbow(length(plot.mats)), start.t = x[[1]]$t, end.t = x[[length(x)]]$t + 0.5, xlab = "Year", ylab = "Interest Rate (\%)", ...)
+	\method{plot}{history.market}(
+	     x, plot.MMrate = TRUE, 
+	     plot.mats = c(1, 2, 5, 10), 
+	     cols = rainbow(length(plot.mats)), 
+	     start.t = x[[1]]$t, 
+	     end.t = x[[length(x)]]$t + 0.5, 
+	     xlab = "Year", 
+	     ylab = "Interest Rate (\%)", 
+	     ...)
 	\method{plot}{history.account}(x,ylab="PV ($)",xlab="Time",...)
 	\method{plot}{sum.account}(x,which=c("pv","duration"),n.ticks=7,...)
 	\method{plot}{vasicek.discrete}(x,t=ncol(x$prob.tree),...)

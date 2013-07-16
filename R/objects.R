@@ -228,18 +228,17 @@ print.market.bond <- function(x,...) {
 }
 
 # Market summary
-summary.market.bond <- function(object,max.mat=30,...) {
-	# Calculate maximum duration we can reach (since the duration depends on the yield curve and the yield curve depends on the duration, there is occasionally a max)
-	mats <- seq(.5,max.mat,.5)
-	is <- sapply(mats,market.rate,mkt=object,dur=NA)
-	durs <- mapply(findDur,mat=mats,i=is)
-	max.dur <- max(durs)
+# i is the coupon rate of a non-mentioned bond you wish to analyze max duration under
+summary.market.bond <- function( object, i=NA, ... ) {
+  if(is.na(r)) { r <- object$i } #Assume at-par unless otherwise specified
+	max.dur <- findMaxDur( market.rate=market.rate( mat= ), i=object$i )
+  max.mat <- findMaxMat( r=r, i=object$i )
 	# Output results
-	res <- list(i = object$i, yield.curve = object$yield.curve, MMrate = object$MMrate, max.dur = max.dur)
+	res <- list(i = object$i, yield.curve = object$yield.curve, MMrate = object$MMrate, max.dur = max.dur, max.mat = max.mat, r=r )
 	structure(res,class=c("sum.market",class(object)))
 }
 print.sum.market.bond <- function(x,...) {
-	cat("Maximum duration is ",round(x$max.dur,2),"\n",sep="")
+	#cat("Maximum duration of a bond with coupon rate ",round(x$r,3)*100,"% is ",round(x$max.dur,2),"\n",sep="")
 	invisible(x)
 }
 
@@ -266,6 +265,7 @@ print.history.market <- function(x,...) {
 
 # Plot history.market
 plot.history.market <- function(x,plot.MMrate=TRUE,plot.mats=c(1,2,5,10),cols=rainbow(length(plot.mats)),start.t=x[[1]]$t,end.t=x[[length(x)]]$t+0.5,xlab="Year",ylab="Interest Rate (%)",...) {
+  require(taRifx)
 	# Validate inputs
 	if(length(x)<2) {
 		cat("Cannot plot a market history of a single period.\n")
@@ -292,7 +292,7 @@ plot.history.market <- function(x,plot.MMrate=TRUE,plot.mats=c(1,2,5,10),cols=ra
 	stagger.scale <- 35 # scaling constant
 	stagger.vec <- (seq(length(plot.mats))-median(seq(length(plot.mats))))/stagger.scale
 	df <- merge(df,data.frame(mat=plot.mats,stagger=stagger.vec))
-	df <- sort.data.frame(df,~t+mat)
+	df <- sort.data.frame(df,formula=~t+mat)
 	df$t <- df$t + df$stagger
 	# Plot
 	cols <- cols

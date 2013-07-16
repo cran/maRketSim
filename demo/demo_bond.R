@@ -1,5 +1,4 @@
 # Demonstration of maRketSim capabilities on the bond side
-# source("~/Documents/Finances/Analysis/BondFund_vs_BondLadder/maRketSim/demo/demo_bond.R")
 
 
 # - Simple bonds - #
@@ -14,8 +13,8 @@ bnd.A # You can display the basic characteristics of a bond
 summary(bnd.A,mkt1) # Or more sophisticated information like duration and convexity
 
 # - Bonds in time and yield curves - #
-mkt2 <- market(market.bond(yield.curve=quote(mat/100+0.01),MMrate=.01),t=2) #yield curve must be in format specified here.  t=2 implies this is a rate change in the future
-mkt1B <- market(market.bond(yield.curve=quote(mat/100+0.01),MMrate=.01),t=0) # we'll need this guy later to demonstrate automatic portfolio generation
+mkt2 <- market(market.bond(yield.curve=quote(0.01 + log10( mat + 1 )/ 20),MMrate=.01),t=2) #yield curve must be in format specified here.  t=2 implies this is a rate change in the future
+mkt1B <- market(market.bond(yield.curve=quote(0.01 + log10( mat + 1 )/ 20),MMrate=.01),t=0) # we'll need this guy later to demonstrate automatic portfolio generation
 
 sum.bnd.A <- summary(bnd.A,mkt2) # Now we're evaluating the same bond two years later, with the intervening coupon payments disappearing into the ether (accounts will address that)
 str(sum.bnd.A) # The summary object has structure with useful quantities to be extracted
@@ -38,10 +37,11 @@ summary(prt1,mkt=mkt2) # Display the portfolio's characteristics under new marke
 as.data.frame(prt1) #Another way of looking at the portfolio.  Useful for exporting to user-written functions or spreadsheets.
 
 # Create random portfolios of bonds with certain portfolio characteristics
-prt2 <- genPortfolio.bond(10,mkt=mkt1B,dur=5,dur.sd=1.5,name="bond2")
+cat("Portfolio generation to a specified duration is currently very fragile due to a lack of a closed-form solution.\n You may have to try it a few times to make it work.\n")
+prt2 <- genPortfolio.bond(10,mkt=mkt1B,dur=5,dur.sd=2,name="bond2")
 prt2
 summary(prt2)
-cat("Duration of our generated portfolio is only",round(abs(5-summary(prt2)$portfolio.sum$dur),2),"away from 5. Not bad huh?\n") #Actually, the algorithm for generating random portfolios is pretty crude.  Please e-mail the maintainer with suggestions or code for ways you want it done.
+cat("Duration of our generated portfolio is",round(abs(5-summary(prt2)$portfolio.sum$dur),2),"away from 5.\n") #Actually, the algorithm for generating random portfolios is pretty crude.  Please e-mail the maintainer with suggestions or code for ways you want it done.
 
 # - Market histories - #
 mkt3 <- market(market.bond(yield.curve=quote(mat/75+0.02),MMrate=.02),t=3)

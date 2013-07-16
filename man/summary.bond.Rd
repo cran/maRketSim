@@ -16,8 +16,15 @@ conditions.
 	\method{summary}{bond}(object, mkt, ...)
 	\method{summary}{portfolio.bond}(object, mkt=object$orig.mkt, ...)
 	\method{summary}{market}(object, ...)
-	\method{summary}{market.bond}(object, max.mat=30, ...)
-	\method{summary}{account}(object,t,rebal.function=rebal.function.default,return.history.account=TRUE,f=.5,rebal.function.args=list(),...)
+	\method{summary}{market.bond}(object, i=NA, ...)
+	\method{summary}{account}(
+	      object,
+	      t,
+	      rebal.function=rebal.function.default,
+	      return.history.account=TRUE,
+	      f=.5,
+	      rebal.function.args=list()
+	      ,...)
 }
 
 \arguments{
@@ -28,7 +35,7 @@ conditions.
 	A market object under which you want to evaluate object
 	}
 	\item{t}{Time under which to evaluate changes}
-	\item{max.mat}{Maximum maturity to allow in optimization process}
+	\item{i}{the coupon rate of a non-mentioned bond you wish to analyze max duration under}
 	\item{rebal.function}{Rebalancing function}
 	\item{return.history.account}{If TRUE, return the entire history object (potentially quite large).}
 	\item{rebal.function.args}{List of arguments to pass to rebal.function}

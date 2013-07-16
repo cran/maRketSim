@@ -12,7 +12,12 @@ specified in the given rebal.function, increment the time period by one, and tra
 \usage{
 	rebalance(obj,start.t,...)
 	\method{rebalance}{default}(obj,start.t,...)
-	\method{rebalance}{account}(obj, start.t, rebal.function = rebal.function.default, f, rebal.function.args = list(), ...)
+	\method{rebalance}{account}(obj, 
+	     start.t, 
+	     rebal.function = rebal.function.default, 
+	     f, 
+	     rebal.function.args = list(), 
+	     ...)
 }
 
 \arguments{

@@ -9,7 +9,10 @@ This function creates a portfolio of bond objects from specification of inputs. 
 allows you to specify the number of bonds and desired duration of the portfolio.
 }
 \usage{
-genPortfolio.bond(n, mkt, dur, dur.sd, max.mat = 30, type = "random", f = 0.5, name=as.character(runif(1)), ...)
+genPortfolio.bond(n, mkt, dur, 
+		     dur.sd, max.mat = 30, type = "random", 
+		     f = 0.5, name=as.character(runif(1)), 
+		     ...)
 }
 \arguments{
 	  \item{n}{
